@@ -123,13 +123,6 @@ gestion-restaurant/
 - **ROLE_USER** - Can browse, reserve, manage own reservations
 - **ROLE_ADMIN** - Full system access
 
-## 🔐 Security
-
-- Password hashing with Symfony's password hasher
-- CSRF protection on forms
-- Role-based access control
-- User-specific reservation access
-
 ## 📝 Database Schema
 
 Main entities:
@@ -146,20 +139,5 @@ Main entities:
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
-
-## 👨‍💻 Author
-
-Created with ❤️ for restaurant management
-
-## 🙏 Acknowledgments
-
-- Symfony Framework
-- Doctrine ORM
-- Twig Template Engine
-
----
 
 **EatOut** - Making restaurant reservations simple and efficient! 🍽️
