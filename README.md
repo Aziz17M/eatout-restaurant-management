@@ -34,7 +34,6 @@
 - PHP 8.2 or higher
 - Composer
 - MySQL/MariaDB
-- Node.js (optional, for asset management)
 
 ## 🚀 Installation
 
