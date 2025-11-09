@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Profile{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Edit Profile</h1>
+
+    <div class="form-container">
+        {{ form_start(form) }}
+            <div class="form-group">
+                {{ form_label(form.name, '👤 Full Name') }}
+                {{ form_widget(form.name) }}
+                {{ form_errors(form.name) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.email, '📧 Email') }}
+                {{ form_widget(form.email) }}
+                {{ form_errors(form.email) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.phone, '📞 Phone Number') }}
+                {{ form_widget(form.phone) }}
+                {{ form_errors(form.phone) }}
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">💾 Save Changes</button>
+                <a href="{{ path('app_profile') }}" class="btn">Cancel</a>
+            </div>
+        {{ form_end(form) }}
+    </div>
+</div>
+{% endblock %}

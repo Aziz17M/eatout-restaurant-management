@@ -1,0 +1,18 @@
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <circle cx="32" cy="32" r="32" fill="#d4521f"/>
+  
+  <!-- Fork -->
+  <g transform="translate(18, 16)">
+    <line x1="5" y1="0" x2="5" y2="28" stroke="white" stroke-width="3" stroke-linecap="round"/>
+    <line x1="2" y1="0" x2="2" y2="18" stroke="white" stroke-width="3" stroke-linecap="round"/>
+    <line x1="8" y1="0" x2="8" y2="18" stroke="white" stroke-width="3" stroke-linecap="round"/>
+    <line x1="11" y1="0" x2="11" y2="12" stroke="white" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  
+  <!-- Knife -->
+  <g transform="translate(35, 16)">
+    <line x1="5" y1="0" x2="5" y2="28" stroke="white" stroke-width="3" stroke-linecap="round"/>
+    <path d="M 3 0 L 7 0 L 7 10 L 3 10 Z" fill="white"/>
+  </g>
+</svg>

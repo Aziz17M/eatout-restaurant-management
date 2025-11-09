@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block body %}
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <h1>Admin Dashboard</h1>
+        <p>Manage your restaurant business</p>
+    </div>
+
+    <div class="dashboard-stats">
+        <div class="stat-card">
+            <div class="icon">🏪</div>
+            <div class="number">{{ stats.restaurants }}</div>
+            <div class="label">Restaurants</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="icon">🍽️</div>
+            <div class="number">{{ stats.dishes }}</div>
+            <div class="label">Dishes</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="icon">📅</div>
+            <div class="number">{{ stats.reservations }}</div>
+            <div class="label">Total Reservations</div>
+        </div>
+    </div>
+
+    <h2 style="text-align: center; margin: 40px 0 20px;">Reservation Status Breakdown</h2>
+    <div class="dashboard-stats">
+        <div class="stat-card status-card">
+            <div class="icon">⏳</div>
+            <div class="number">{{ stats.pending }}</div>
+            <div class="label">Pending</div>
+        </div>
+
+        <div class="stat-card status-card">
+            <div class="icon">✅</div>
+            <div class="number">{{ stats.confirmed }}</div>
+            <div class="label">Confirmed</div>
+        </div>
+
+        <div class="stat-card status-card">
+            <div class="icon">✔️</div>
+            <div class="number">{{ stats.completed }}</div>
+            <div class="label">Completed</div>
+        </div>
+
+        <div class="stat-card status-card">
+            <div class="icon">❌</div>
+            <div class="number">{{ stats.cancelled }}</div>
+            <div class="label">Cancelled</div>
+        </div>
+    </div>
+
+    <div class="dashboard-actions">
+        <div class="action-card">
+            <h3>🏪 Manage Restaurants</h3>
+            <p>Add, edit, or remove restaurants from your system</p>
+            <a href="{{ path('app_restaurant_index') }}" class="btn">View Restaurants</a>
+            <a href="{{ path('app_restaurant_new') }}" class="btn">Add New Restaurant</a>
+        </div>
+
+        <div class="action-card">
+            <h3>🍽️ Manage Dishes</h3>
+            <p>Create and update menu items for your restaurants</p>
+            <a href="{{ path('app_dish_index') }}" class="btn">View Dishes</a>
+            <a href="{{ path('app_dish_new') }}" class="btn">Add New Dish</a>
+        </div>
+
+        <div class="action-card">
+            <h3>📅 Manage Reservations</h3>
+            <p>View and manage customer reservations</p>
+            <a href="{{ path('app_reservation_index') }}" class="btn">View Reservations</a>
+            <a href="{{ path('app_reservation_new') }}" class="btn">Create Reservation</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

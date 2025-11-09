@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reservations{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Reservations</h1>
+    <a href="{{ path('app_reservation_new') }}" class="btn">Create New Reservation</a>
+
+    <div class="status-filters">
+        <a href="{{ path('app_reservation_index') }}" class="status-filter {{ currentStatus is null ? 'active' : '' }}">
+            All
+        </a>
+        <a href="{{ path('app_reservation_index', {'status': 'pending'}) }}" class="status-filter {{ currentStatus == 'pending' ? 'active' : '' }}">
+            ⏳ Pending
+        </a>
+        <a href="{{ path('app_reservation_index', {'status': 'confirmed'}) }}" class="status-filter {{ currentStatus == 'confirmed' ? 'active' : '' }}">
+            ✅ Confirmed
+        </a>
+        <a href="{{ path('app_reservation_index', {'status': 'completed'}) }}" class="status-filter {{ currentStatus == 'completed' ? 'active' : '' }}">
+            ✔️ Completed
+        </a>
+        <a href="{{ path('app_reservation_index', {'status': 'cancelled'}) }}" class="status-filter {{ currentStatus == 'cancelled' ? 'active' : '' }}">
+            ❌ Cancelled
+        </a>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Customer Name</th>
+                <th>Email</th>
+                <th>Date & Time</th>
+                <th>People</th>
+                <th>Restaurant</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for reservation in reservations %}
+            <tr>
+                <td>{{ reservation.customerName }}</td>
+                <td>{{ reservation.customerEmail }}</td>
+                <td>{{ reservation.dateTime|date('Y-m-d H:i') }}</td>
+                <td>{{ reservation.numberOfPeople }}</td>
+                <td>{{ reservation.restaurant.name }}</td>
+                <td>
+                    <span class="status-badge status-{{ reservation.status }}">
+                        {{ reservation.status|capitalize }}
+                    </span>
+                </td>
+                <td>
+                    <a href="{{ path('app_reservation_show', {'id': reservation.id}) }}" class="btn btn-sm">Show</a>
+                    {% if is_granted('ROLE_ADMIN') or reservation.user == app.user %}
+                        {% if reservation.status != 'cancelled' and reservation.status != 'completed' %}
+                            <a href="{{ path('app_reservation_edit', {'id': reservation.id}) }}" class="btn btn-sm">Edit</a>
+                        {% endif %}
+                    {% endif %}
+                </td>
+            </tr>
+            {% else %}
+            <tr><td colspan="7">No reservations yet</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

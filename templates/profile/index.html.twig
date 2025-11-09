@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}My Profile{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>My Profile</h1>
+
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
+
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-error">{{ message }}</div>
+    {% endfor %}
+
+    <div class="profile-container">
+        <div class="profile-card">
+            <div class="profile-header">
+                <div class="profile-avatar">👤</div>
+                <h2>{{ app.user.name ?? app.user.email }}</h2>
+                <p class="profile-email">{{ app.user.email }}</p>
+            </div>
+
+            <div class="profile-info">
+                <div class="info-row">
+                    <span class="info-label">📧 Email:</span>
+                    <span class="info-value">{{ app.user.email }}</span>
+                </div>
+                
+                {% if app.user.name %}
+                <div class="info-row">
+                    <span class="info-label">👤 Name:</span>
+                    <span class="info-value">{{ app.user.name }}</span>
+                </div>
+                {% endif %}
+
+                {% if app.user.phone %}
+                <div class="info-row">
+                    <span class="info-label">📞 Phone:</span>
+                    <span class="info-value">{{ app.user.phone }}</span>
+                </div>
+                {% endif %}
+
+                <div class="info-row">
+                    <span class="info-label">🎭 Role:</span>
+                    <span class="info-value">
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <span class="role-badge admin">Administrator</span>
+                        {% else %}
+                            <span class="role-badge user">User</span>
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+
+            <div class="profile-actions">
+                <a href="{{ path('app_profile_edit') }}" class="btn btn-primary">✏️ Edit Profile</a>
+                <a href="{{ path('app_profile_change_password') }}" class="btn">🔒 Change Password</a>
+            </div>
+        </div>
+
+        <div class="profile-stats">
+            <h3>My Activity</h3>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-icon">📅</div>
+                    <div class="stat-number">{{ app.user.reservations|length }}</div>
+                    <div class="stat-label">Total Reservations</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

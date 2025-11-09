@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}EatOut - Dine With Ease{% endblock %}
+
+{% block body %}
+<div class="landing-page">
+    <div class="hero-section">
+        <div class="hero-content">
+            <div class="hero-brand">EatOut</div>
+            <h1 class="hero-title">Discover & Reserve Your Perfect Dining Experience</h1>
+            <p class="hero-subtitle">Browse restaurants, explore menus, and book your table in seconds</p>
+            <div class="hero-actions">
+                <a href="{{ path('app_register') }}" class="btn btn-primary btn-large">Get Started</a>
+                <a href="{{ path('app_login') }}" class="btn btn-outline btn-large">Sign In</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="features-section">
+        <div class="container">
+            <h2 class="section-title">Why Choose EatOut?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🏪</div>
+                    <h3>Discover Restaurants</h3>
+                    <p>Browse through our curated selection of amazing restaurants</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🍽️</div>
+                    <h3>Explore Menus</h3>
+                    <p>View detailed menus with photos and prices before you go</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📅</div>
+                    <h3>Easy Reservations</h3>
+                    <p>Book your table instantly with just a few clicks</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">✅</div>
+                    <h3>Instant Confirmation</h3>
+                    <p>Get immediate confirmation and manage your bookings</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-number">{{ restaurantCount }}+</div>
+                    <div class="stat-label">Restaurants</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Satisfaction</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Booking</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="cta-section">
+        <div class="container">
+            <h2>Ready to Start Dining?</h2>
+            <p>Join EatOut today and discover your next favorite restaurant</p>
+            <a href="{{ path('app_register') }}" class="btn btn-primary btn-large">Create Free Account</a>
+        </div>
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="footer-brand">EatOut</div>
+    <p>&copy; {{ "now"|date("Y") }} EatOut. All rights reserved.</p>
+    <p>Dine With Ease</p>
+</footer>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ dish.name }}{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>{{ dish.name }}</h1>
+
+    <div class="detail-card">
+        {% if dish.image %}
+            <div class="dish-image-container">
+                <img src="{{ asset('uploads/dishes/' ~ dish.image) }}" alt="{{ dish.name }}" class="dish-image">
+            </div>
+        {% endif %}
+        {% if dish.category %}
+            <p><strong>Category:</strong> <span class="category-badge">{{ dish.category }}</span></p>
+        {% endif %}
+        <p><strong>Description:</strong> {{ dish.description }}</p>
+        <p><strong>Price:</strong> <span class="price-tag">${{ dish.price }}</span></p>
+        <p><strong>Restaurant:</strong> {{ dish.restaurant.name }}</p>
+    </div>
+
+    <div class="actions">
+        <a href="{{ path('app_dish_index') }}" class="btn">← Back to List</a>
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('app_dish_edit', {'id': dish.id}) }}" class="btn">✏️ Edit</a>
+            {{ include('dish/_delete_form.html.twig') }}
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ restaurant.name }}{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>{{ restaurant.name }}</h1>
+
+    <div class="detail-card">
+        <p><strong>📍 Address:</strong> {{ restaurant.address }}</p>
+        <p><strong>📞 Phone:</strong> {{ restaurant.phone }}</p>
+        <p><strong>✉️ Email:</strong> {{ restaurant.email }}</p>
+    </div>
+
+    <h2>🍽️ Menu</h2>
+    {% if restaurant.dishes|length > 0 %}
+        <div class="menu-grid">
+            {% for dish in restaurant.dishes %}
+                <div class="menu-item">
+                    {% if dish.image %}
+                        <img src="{{ asset('uploads/dishes/' ~ dish.image) }}" alt="{{ dish.name }}" class="menu-item-image">
+                    {% else %}
+                        <div class="menu-item-placeholder">🍽️</div>
+                    {% endif %}
+                    <div class="menu-item-content">
+                        <div class="menu-item-header">
+                            <h4>{{ dish.name }}</h4>
+                            {% if dish.category %}
+                                <span class="category-badge">{{ dish.category }}</span>
+                            {% endif %}
+                        </div>
+                        <p class="menu-item-description">{{ dish.description|length > 100 ? dish.description|slice(0, 100) ~ '...' : dish.description }}</p>
+                        <div class="menu-item-footer">
+                            <span class="menu-item-price">${{ dish.price }}</span>
+                            <div class="menu-item-actions">
+                                <a href="{{ path('app_dish_show', {'id': dish.id}) }}" class="btn btn-sm">View</a>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <a href="{{ path('app_dish_edit', {'id': dish.id}) }}" class="btn btn-sm">Edit</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p style="text-align: center; color: #95a5a6; font-style: italic;">No dishes for this restaurant yet.</p>
+    {% endif %}
+
+    <h2>📅 Reservations</h2>
+    {% if restaurant.reservations|length > 0 %}
+        <ul>
+            {% for reservation in restaurant.reservations %}
+                <li>
+                    <span>{{ reservation.customerName }} - {{ reservation.dateTime|date("Y-m-d H:i") }} - {{ reservation.numberOfPeople }} people</span>
+                    <div>
+                        <a href="{{ path('app_reservation_show', {'id': reservation.id}) }}" class="btn">View</a>
+                        {% if is_granted('ROLE_ADMIN') or reservation.user == app.user %}
+                            <a href="{{ path('app_reservation_edit', {'id': reservation.id}) }}" class="btn">Edit</a>
+                        {% endif %}
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p style="text-align: center; color: #95a5a6; font-style: italic;">No reservations for this restaurant yet.</p>
+    {% endif %}
+
+    <div class="actions">
+        <a href="{{ path('app_restaurant_index') }}" class="btn">← Back to List</a>
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('app_restaurant_edit', {'id': restaurant.id}) }}" class="btn">✏️ Edit</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

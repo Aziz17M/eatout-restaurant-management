@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reservation Details{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Reservation Details</h1>
+
+    <div class="detail-card">
+        <p><strong>👤 Customer:</strong> {{ reservation.customerName }}</p>
+        <p><strong>✉️ Email:</strong> {{ reservation.customerEmail }}</p>
+        <p><strong>📅 Date & Time:</strong> {{ reservation.dateTime ? reservation.dateTime|date('Y-m-d H:i') : '' }}</p>
+        <p><strong>👥 Party Size:</strong> {{ reservation.numberOfPeople }} people</p>
+        <p><strong>🏪 Restaurant:</strong> {{ reservation.restaurant.name }}</p>
+        <p><strong>📊 Status:</strong> <span class="status-badge status-{{ reservation.status }}">{{ reservation.status|capitalize }}</span></p>
+    </div>
+
+    <div class="actions">
+        <a href="{{ path('app_reservation_index') }}" class="btn">← Back to List</a>
+        
+        {% if reservation.status != 'cancelled' and reservation.status != 'completed' %}
+            {% if is_granted('ROLE_ADMIN') or reservation.user == app.user %}
+                <a href="{{ path('app_reservation_edit', {'id': reservation.id}) }}" class="btn">✏️ Edit</a>
+            {% endif %}
+        {% endif %}
+
+        {% if is_granted('ROLE_ADMIN') %}
+            {% if reservation.status == 'pending' %}
+                <form method="post" action="{{ path('app_reservation_confirm', {'id': reservation.id}) }}" style="display: inline;">
+                    <input type="hidden" name="_token" value="{{ csrf_token('confirm' ~ reservation.id) }}">
+                    <button class="btn btn-success">✅ Confirm</button>
+                </form>
+            {% endif %}
+            
+            {% if reservation.status == 'confirmed' %}
+                <form method="post" action="{{ path('app_reservation_complete', {'id': reservation.id}) }}" style="display: inline;">
+                    <input type="hidden" name="_token" value="{{ csrf_token('complete' ~ reservation.id) }}">
+                    <button class="btn btn-info">✔️ Complete</button>
+                </form>
+            {% endif %}
+        {% endif %}
+
+        {% if reservation.status != 'cancelled' and reservation.status != 'completed' %}
+            {% if is_granted('ROLE_ADMIN') or reservation.user == app.user %}
+                <form method="post" action="{{ path('app_reservation_cancel', {'id': reservation.id}) }}" style="display: inline;">
+                    <input type="hidden" name="_token" value="{{ csrf_token('cancel' ~ reservation.id) }}">
+                    <button class="btn btn-warning">❌ Cancel</button>
+                </form>
+            {% endif %}
+        {% endif %}
+
+        {% if is_granted('ROLE_ADMIN') %}
+            {{ include('reservation/_delete_form.html.twig') }}
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

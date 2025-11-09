@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Restaurants{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Restaurants</h1>
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('app_restaurant_new') }}" class="btn">Create New Restaurant</a>
+    {% endif %}
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Dishes Count</th>
+                <th>Reservations</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for restaurant in restaurants %}
+            <tr>
+                <td>{{ restaurant.name }}</td>
+                <td>{{ restaurant.address }}</td>
+                <td>{{ restaurant.phone }}</td>
+                <td>{{ restaurant.email }}</td>
+                <td>{{ restaurant.dishes|length }}</td>
+                <td>{{ restaurant.reservations|length }}</td>
+                <td>
+                    <a href="{{ path('app_restaurant_show', {'id': restaurant.id}) }}" class="btn">Show</a>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('app_restaurant_edit', {'id': restaurant.id}) }}" class="btn">Edit</a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% else %}
+            <tr><td colspan="7">No restaurants yet</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

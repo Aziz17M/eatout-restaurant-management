@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Dish{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Create New Dish</h1>
+
+    {{ include('dish/_form.html.twig') }}
+
+    <div class="actions">
+        <a href="{{ path('app_dish_index') }}" class="btn">← Back to List</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block body %}
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <div class="brand-text">EatOut</div>
+            <h1>Join EatOut</h1>
+            <p>Create your account and start dining</p>
+        </div>
+
+        {{ form_errors(registrationForm) }}
+
+        {{ form_start(registrationForm) }}
+            <div class="form-group">
+                {{ form_label(registrationForm.email, '📧 Email') }}
+                {{ form_widget(registrationForm.email) }}
+                {{ form_errors(registrationForm.email) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(registrationForm.plainPassword, '🔒 Password') }}
+                {{ form_widget(registrationForm.plainPassword) }}
+                {{ form_errors(registrationForm.plainPassword) }}
+            </div>
+
+            <div class="form-group checkbox-group">
+                {{ form_widget(registrationForm.agreeTerms) }}
+                {{ form_label(registrationForm.agreeTerms) }}
+                {{ form_errors(registrationForm.agreeTerms) }}
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+        {{ form_end(registrationForm) }}
+
+        <div class="auth-footer">
+            <p>Already have an account? <a href="{{ path('app_login') }}">Sign in here</a></p>
+        </div>
+    </div>
+</div>
+{% endblock %}
